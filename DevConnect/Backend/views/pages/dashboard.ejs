@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+
+  <h1>All Posts</h1>
+
+  <a href="/create-post">Create Post</a>
+  <a href="/logout">Logout</a>
+
+  <hr>
+
+  <% if (posts.length === 0) { %>
+    <p>No posts yet</p>
+  <% } %>
+
+  <% posts.forEach(post => { %>
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+      <h3><%= post.title %></h3>
+      <p><%= post.content %></p>
+
+      <small>
+        By <%= post.author.name %> (<%= post.author.email %>)
+      </small>
+    </div>
+  <% }) %>
+  <% posts.forEach(post => { %>
+  <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+    <h3><%= post.title %></h3>
+    <p><%= post.content %></p>
+
+    <small>
+      By <%= post.author.name %>
+    </small>
+
+    <% if (post.author._id.toString() === userId) { %>
+      <br><br>
+
+      <form action="/delete-post/<%= post._id %>" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+
+      <a href="/edit-post/<%= post._id %>">Edit</a>
+    <% } %>
+
+  </div>
+<% }) %>
+
+</body>
+</html>
